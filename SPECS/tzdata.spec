@@ -1,15 +1,15 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2023c
-%define tzdata_version 2023c
-%define tzcode_version 2023c
+Version: 2024a
+%define tzdata_version 2024a
+%define tzcode_version 2024a
 Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
 Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
 
-Patch002: 0002-Fix-have-snprintf-error.patch
+Patch002: 0002-Fix-have-snprintf.patch
 %if 0%{?rhel} || 0%{?eln}
 Patch003: 0003-continue-to-ship-posixrules.patch
 %endif
@@ -151,6 +151,22 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Thu Feb 01 2024 Patsy Griffin <patsy@redhat.com> - 2024a-1
+- Rebase to tzdata-2024a
+  - Kazakhstan will transition from UTC+6 to UTC+5 on 2024-03-01.
+  - Palestine will spring forward a week later than previously
+    predicted.
+
+* Mon Jan 01 2024 Patsy Griffin <patsy@redhat.com> - 2023d-1
+- Rebase to tzdata-2023d
+  - Include time zone changes for Ittoqqortoormiit, Greenland
+    and Vostok, Antarctica.
+  - Update the expiration date for the leap-seconds.list file.
+    No new leap seconds were added.
+
+* Thu Aug 17 2023 Patsy Griffin <patsy@redhat.com> - 2023c-2
+- Bump release to test recent process changes. (RHEL-1323)
+
 * Tue Mar 28 2023 Patsy Griffin <patsy@redhat.com> - 2023c-1
 - Rebase to tzdata-2023c
   - Lebanon reversed the change added in tzdata-2023b.
