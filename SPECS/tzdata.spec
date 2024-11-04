@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2024a
-%define tzdata_version 2024a
-%define tzcode_version 2024a
-Release: 1%{?dist}
+Version: 2024b
+%define tzdata_version 2024b
+%define tzcode_version 2024b
+Release: 4%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://www.iana.org/time-zones
@@ -12,9 +12,13 @@ Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
 
 Patch002: 0002-Fix-have-snprintf.patch
 Patch003: 0003-continue-to-ship-posixrules.patch
+Patch004: 0004-Fix-Apr-vs-April-2024b.patch
+Patch005: 0005-Improve-style-checks-for-months-2024b.patch
 
 BuildRequires: gawk, glibc, perl-interpreter
 BuildRequires: java-devel
+BuildRequires: make
+BuildRequires: gcc
 BuildRequires: glibc-common >= 2.5.90-7
 Conflicts: glibc-common <= 2.3.2-63
 BuildArchitectures: noarch
@@ -28,12 +32,14 @@ Summary: Timezone data for Java
 Group: System Environment/Base
 Source3: javazic.tar.gz
 Source4: javazic-1.8-37392f2f5d59.tar.xz
+Source5: ZoneTest.java
 Patch100: javazic-fixup.patch
 Patch101: rebase-01.patch
 Patch102: rebase-02.patch
 Patch103: 7090844.patch
 Patch104: 7133138.patch
 Patch105: 8051641.patch
+Patch106: javazic-harden-links.patch
 
 %description java
 This package contains timezone information for use by Java runtimes.
@@ -43,6 +49,8 @@ This package contains timezone information for use by Java runtimes.
 
 %patch002 -p1
 %patch003 -p1
+%patch004 -p1
+%patch005 -p1
 
 # Currently tzdata is providing the "rearguard" data set for maximum
 # compatibility with existing Red Hat Enterprise Linux installs. Future releases of
@@ -86,6 +94,7 @@ popd
 
 tar xf %{SOURCE4}
 %patch105
+%patch106 -p1
 
 echo "%{name}%{tzdata_version}" >> VERSION
 
@@ -132,6 +141,20 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %check
 echo ============TESTING===============
 /usr/bin/env LANG=C make -k VALIDATE=':' check && true
+
+# Create a custom JAVA_HOME, where we can replace tzdb.dat with the
+# one just built, for testing.
+system_java_home=$(dirname $(readlink -f $(which java)))/..
+mkdir -p java_home
+cp -Lr $system_java_home/* java_home/.
+for tzdb in $(find java_home -name tzdb.dat) ; do
+    rm $tzdb
+    cp $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/tzdb.dat $tzdb
+done
+# Compile the smoke test and run it.
+cp %{SOURCE5} .
+javac ZoneTest.java
+java_home/bin/java ZoneTest
 echo ============END TESTING===========
 
 %files
@@ -149,6 +172,27 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Oct 09 2024 Patsy Griffin <patsy@redhat.com> - 2024b-4
+- Bump release and rebuild to fix a build issue.
+
+* Thu Oct 03 2024 Patsy Griffin <patsy@redhat.com> - 2024b-3
+- Add copyright, patch attribution and build dependencies for
+  the previous commit. (RHEL-59542)
+
+* Fri Sep 20 2024 Florian Weimer <fweimer@redhat.com> - 2024b-2
+- Harden against links to removed zones (RHEL-59542)
+
+* Wed Sep 11 2024 Patsy Griffin <patsy@redhat.com> - 2024b-1
+- Update to tzdata-2024b
+  - Improve historical data for Mexico, Mongolia, and Portugal.
+  - System V names are now obsolescent.
+  - The main data form now uses %z.
+  - The code now conforms to RFC 8536 for early timestamps.
+  - Support POSIX.1-2024, which removes asctime_r and ctime_r.
+  - Assume POSIX.2-1992 or later for shell scripts.
+  - SUPPORT_C89 now defaults to 1.
+  - Include two upstream patches for month names as in April vs Apr.
+
 * Thu Feb 01 2024 Patsy Griffin <patsy@redhat.com> - 2024a-1
 - Rebase to tzdata-2024a
   - Kazakhstan will transition from UTC+6 to UTC+5 on 2024-03-01.
