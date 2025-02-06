@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2024b
-%define tzdata_version 2024b
-%define tzcode_version 2024b
-Release: 4%{?dist}
+Version: 2025a
+%define tzdata_version 2025a
+%define tzcode_version 2025a
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://www.iana.org/time-zones
@@ -12,8 +12,6 @@ Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
 
 Patch002: 0002-Fix-have-snprintf.patch
 Patch003: 0003-continue-to-ship-posixrules.patch
-Patch004: 0004-Fix-Apr-vs-April-2024b.patch
-Patch005: 0005-Improve-style-checks-for-months-2024b.patch
 
 BuildRequires: gawk, glibc, perl-interpreter
 BuildRequires: java-devel
@@ -49,8 +47,6 @@ This package contains timezone information for use by Java runtimes.
 
 %patch002 -p1
 %patch003 -p1
-%patch004 -p1
-%patch005 -p1
 
 # Currently tzdata is providing the "rearguard" data set for maximum
 # compatibility with existing Red Hat Enterprise Linux installs. Future releases of
@@ -172,6 +168,13 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Tue Jan 21 2025 Patsy Griffin <pats@redhat.com> - 2025a-1
+  Update to tzdata-2025a (RHEL-74309)
+  - Paraguay is now permanently at -03. This impacts timestamps
+    starting on 2025-03-22.
+  - Includes improvements to pre-1991 data for the Philippines.
+  - Etc/Unknown is now reserved.
+
 * Wed Oct 09 2024 Patsy Griffin <patsy@redhat.com> - 2024b-4
 - Bump release and rebuild to fix a build issue.
 
