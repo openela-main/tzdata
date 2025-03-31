@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2025a
-%define tzdata_version 2025a
-%define tzcode_version 2025a
+Version: 2025b
+%define tzdata_version 2025b
+%define tzcode_version 2025b
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -168,7 +168,13 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
-* Tue Jan 21 2025 Patsy Griffin <pats@redhat.com> - 2025a-1
+* Mon Mar 24 2025 Patsy Griffin <patsy@redhat.com> - 2025b-1
+- Update to tzdata-2025b (RHEL-84748)
+  - Chile's Aysén Region moves from -04/-03
+    to -03 year-round, diverging from America/Santiago and
+    creating a new zone America/Coyhaique.
+
+* Tue Jan 21 2025 Patsy Griffin <patsy@redhat.com> - 2025a-1
   Update to tzdata-2025a (RHEL-74309)
   - Paraguay is now permanently at -03. This impacts timestamps
     starting on 2025-03-22.
