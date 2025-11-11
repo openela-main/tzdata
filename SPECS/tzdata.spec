@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2025b
 %define tzdata_version 2025b
 %define tzcode_version 2025b
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -129,6 +129,7 @@ echo ============END TESTING===========
 %{_datadir}/zoneinfo
 %license LICENSE
 %doc README
+%doc NEWS
 %doc theory.html
 %doc tz-link.html
 %doc tz-art.html
@@ -137,6 +138,9 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Fri Jul 25 2025 Patsy Griffin <patsy@redhat.com> - 2025b-2
+- Included NEWS file with docs. (RHEL-105042)
+
 * Mon Mar 24 2025 Patsy Griffin <patsy@redhat.com> - 2025b-1
 - Update to tzdata-2025b (RHEL-84740)
   - Chile's Aysén Region moves from -04/-03
