@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2025b
-%define tzdata_version 2025b
-%define tzcode_version 2025b
+Version: 2025c
+%define tzdata_version 2025c
+%define tzcode_version 2025c
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -60,7 +60,7 @@ This package contains timezone information for use by Java runtimes.
 # supports the traditional format.
 
 # Create the reargard data files.
-make VERSION=%{version} tzdata%{version}-rearguard.tar.gz
+make VERSION=%{version} tzdata%{version}-rearguard.tar.gz.t
 tar zxf tzdata%{version}-rearguard.tar.gz
 
 # Run make to re-create the tzdata.zi file for rearguard format
@@ -158,6 +158,7 @@ echo ============END TESTING===========
 %{_datadir}/zoneinfo
 %license LICENSE
 %doc README
+%doc NEWS
 %doc theory.html
 %doc tz-link.html
 %doc tz-art.html
@@ -168,6 +169,13 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Dec 10 2025 Patsy Griffin <patsy@redhat.com> - 2025c-1
+- Update to tzdata-2025c (RHEL-135159)
+  - Update leap seconds file expiration date
+
+* Fri Aug 01 2025 Patsy Griffin <patsy@redhat.com> - 2025b-2
+- Included NEWS file with docs. (RHEL-102379)
+
 * Mon Mar 24 2025 Patsy Griffin <patsy@redhat.com> - 2025b-1
 - Update to tzdata-2025b (RHEL-84748)
   - Chile's Aysén Region moves from -04/-03
