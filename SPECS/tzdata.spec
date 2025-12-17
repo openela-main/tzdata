@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2025b
-%define tzdata_version 2025b
-%define tzcode_version 2025b
-Release: 2%{?dist}
+Version: 2025c
+%define tzdata_version 2025c
+%define tzcode_version 2025c
+Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -46,7 +46,7 @@ This package contains timezone information for use by Java runtimes.
 # tzdata-2018g introduced 25:00 transition times.  This breaks OpenJDK.
 # Use rearguard for java
 mkdir rearguard
-make VERSION=%{version} tzdata%{version}-rearguard.tar.gz
+make VERSION=%{version} tzdata%{version}-rearguard.tar.gz.t
 mv tzdata%{version}-rearguard.tar.gz rearguard
 pushd rearguard
 tar zxf tzdata%{version}-rearguard.tar.gz
@@ -138,6 +138,10 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Dec 10 2025 Patsy Griffin <patsy@redhat.com> - 2025c-1
+- Update to tzdata-2025c (RHEL-135156)
+  - Update leap seconds file expiration date
+
 * Fri Jul 25 2025 Patsy Griffin <patsy@redhat.com> - 2025b-2
 - Included NEWS file with docs. (RHEL-105042)
 
