@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2025c
-%define tzdata_version 2025c
-%define tzcode_version 2025c
+Version: 2026a
+%define tzdata_version 2026a
+%define tzcode_version 2026a
 Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
@@ -10,7 +10,6 @@ Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
 Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
 
 Patch002: 0002-Fix-have-snprintf-error.patch
-Patch003: 0003-continue-to-ship-posixrules.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -39,9 +38,6 @@ This package contains timezone information for use by Java runtimes.
 %setup -q -c -a 1
 
 %patch -p1 -P 2
-%if 0%{?rhel}
-%patch -p1 -P 3
-%endif
 
 # tzdata-2018g introduced 25:00 transition times.  This breaks OpenJDK.
 # Use rearguard for java
@@ -138,6 +134,11 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Fri Mar 06 2026 Patsy Griffin <patsy@redhat.com> - 2026a-1
+- Update to tzdata-2026a (RHEL-154023)
+  - Correct the transition times for Moldova.
+  - The POSIXRULES option is now obsolete.
+
 * Wed Dec 10 2025 Patsy Griffin <patsy@redhat.com> - 2025c-1
 - Update to tzdata-2025c (RHEL-135156)
   - Update leap seconds file expiration date
