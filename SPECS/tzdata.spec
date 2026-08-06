@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2026b
-%define tzdata_version 2026b
-%define tzcode_version 2026b
+Version: 2026c
+%define tzdata_version 2026c
+%define tzcode_version 2026c
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -167,6 +167,11 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Thu Jul 23 2026 Patsy Griffin <patsy@redhat.com> - 2026c-1
+- Update to tzdata-2026c (RHEL-194104)
+  - Alberta moved to permanent -06 on 2026-06-18.
+  - Morocco moves to permanent +00 on 2026-09-20.
+
 * Mon Apr 27 2026 Patsy Griffin <patsy@redhat.com> - 2026b-1
 - Update to tzdata-2026b (RHEL-170797)
   - British Columbia’s 2026-03-08 spring forward is expected
