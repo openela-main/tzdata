@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2026c
-%define tzdata_version 2026c
-%define tzcode_version 2026c
+Version: 2026e
+%define tzdata_version 2026e
+%define tzcode_version 2026e
 Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
@@ -134,6 +134,17 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Sep 30 2026 Patsy Griffin <patsy@redhat.com> - 2026e-1
+- Update to tzdata-2026e (262042)
+  - Manitoba moves to permanent -05 on 2026-10-31.
+
+* Thu Sep 24 2026 Patsy Griffin <patsy@redhat.com> - 2026d-1
+- Update to tzdata-2026d (RHEL-262042)
+  - Canada's Northwest Territories moved to permanent -06
+    on 2026-08-21.
+  - Obsolescent settings like TZ="EST5EDT" now conform better
+    to POSIX.
+
 * Wed Jul 15 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 2026c-1
 - Update to tzdata-2026c (RHEL-194097)
   - Alberta moved to permanent -06 on 2026-06-18.
