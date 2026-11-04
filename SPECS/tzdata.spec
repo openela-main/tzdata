@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2026e
-%define tzdata_version 2026e
-%define tzcode_version 2026e
+Version: 2026f
+%define tzdata_version 2026f
+%define tzcode_version 2026f
 Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
@@ -134,6 +134,14 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Oct 28 2026 Patsy Griffin <patsy@redhat.com> - 2026f-1
+- Update to tzdata-2026f (RHEL-293346)
+  - Cuba will not fall back on 2026-11-01.  Cuba will stay on -04
+    through 2027-11-07.
+  - There will be no more leap seconds.  The leap seconds tables will
+    no longer expire.
+  - Improve 1965/1966 data for Brazil.
+
 * Wed Sep 30 2026 Patsy Griffin <patsy@redhat.com> - 2026e-1
 - Update to tzdata-2026e (262042)
   - Manitoba moves to permanent -05 on 2026-10-31.
